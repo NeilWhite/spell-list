@@ -1,0 +1,36 @@
+{
+  "id": "spell-list",
+  "title": "Spell List Tagging",
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "description": "Provides ability to tag spells as part of a classes spell list",
+  "authors": [
+    {
+      "name": "Slamwell",
+      "discord": "slamwell"
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  },
+  "esmodules": [
+    "/scripts/module.js"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    }
+  ]
+}

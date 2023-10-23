@@ -1,0 +1,14 @@
+{
+  "SPELL-LIST.name": "Spell Lists",
+  "SPELL-LIST.section.class": "Classes",
+
+  "SPELL-LIST.class.artificer": "Artificer",
+  "SPELL-LIST.class.cleric": "Cleric",
+  "SPELL-LIST.class.druid": "Druid",
+  "SPELL-LIST.class.paladin": "Paladin",
+  "SPELL-LIST.class.ranger": "Ranger",
+  "SPELL-LIST.class.warlock": "Warlock",
+
+  "SPELL-LIST.section.subclass": "Subclasses",
+  "SPELL-LIST.subclass.fish": "Fish"
+}
