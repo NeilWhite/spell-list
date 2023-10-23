@@ -13,5 +13,12 @@
   "SPELL-LIST.class.wizard": "Wizard",
 
   "SPELL-LIST.section.subclass": "Subclasses",
-  "SPELL-LIST.subclass.oath-of-the-watchers": "Oath of the Watchers"
+  "SPELL-LIST.subclass.oath-of-the-watchers": "Oath of the Watchers",
+
+  "SPELL-LIST.advancement.spell-choice.title": "Grant Spells",
+  "SPELL-LIST.advancement.spell-choice.hint": "Grant the character a number of spells from a the classes spell list",
+
+  "SPELL-LIST.settings.collection.name": "Included Compendiums",
+  "SPELL-LIST.settings.collection.hint": "Configure which compendiums should be scanned for spells (spells must be configured with spell-list tags)",
+  "SPELL-LIST.settings.collection.world": "This World"
 }

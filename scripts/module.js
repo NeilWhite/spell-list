@@ -8,6 +8,7 @@ Hooks.on("init", () => {
   globalThis.CONFIG.SpellList = Api;
 
   registerSettings();
+  configureAdvancement(game.system);
 });
 
 Hooks.on("ready", () => {
@@ -15,6 +16,4 @@ Hooks.on("ready", () => {
   preLoc(CONFIG.casters.subclass, "label");
 
   Hooks.on("renderItemSheet", renderItemSheetHook);
-
-  configureAdvancement(game.system);
 });

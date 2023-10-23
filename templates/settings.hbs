@@ -1,0 +1,15 @@
+<form>
+    <p class="note">{{localize "SPELL-LIST.settings.collection.hint"}}</p>
+    {{#each sections}}
+    <h3 class="form-header">{{label}}</h3>
+      {{#each types}}
+      <div class="form-group">
+        <label type="checkbox">
+          <input type="checkbox" name="{{value}}" {{checked checked}}>
+          {{label}}
+        </label>
+      </div>
+      {{/each}}
+    {{/each}}
+  <button type="submit"><i class="fa-solid fa-save"></i> {{localize "Save"}}</button>
+</form>
