@@ -3,12 +3,15 @@
   "SPELL-LIST.section.class": "Classes",
 
   "SPELL-LIST.class.artificer": "Artificer",
+  "SPELL-LIST.class.bard": "Bard",
   "SPELL-LIST.class.cleric": "Cleric",
   "SPELL-LIST.class.druid": "Druid",
   "SPELL-LIST.class.paladin": "Paladin",
   "SPELL-LIST.class.ranger": "Ranger",
+  "SPELL-LIST.class.sorcerer": "Sorcerer",
   "SPELL-LIST.class.warlock": "Warlock",
+  "SPELL-LIST.class.wizard": "Wizard",
 
   "SPELL-LIST.section.subclass": "Subclasses",
-  "SPELL-LIST.subclass.fish": "Fish"
+  "SPELL-LIST.subclass.oath-of-the-watchers": "Oath of the Watchers"
 }

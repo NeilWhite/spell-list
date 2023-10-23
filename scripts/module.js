@@ -1,13 +1,18 @@
 const addonId = "spell-list";
 
-
 const mapDict = (type) => (acc, c) => {
   acc[c] = { label: `SPELL-LIST.${type}.${c}` }
   return acc;
 }
 
-const classes = [ "artificer", "cleric", "druid", "paladin", "ranger", "warlock" ];
-const subclasses = [ "fish" ];
+const classes = [
+  "artificer", "bard", "cleric", "druid", "paladin",
+  "ranger", "sorcerer", "warlock", "wizard"
+];
+
+const subclasses = [
+  "oath-of-the-watchers"
+];
 
 const CONFIG = {
   casters: {
