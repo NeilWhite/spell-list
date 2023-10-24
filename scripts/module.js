@@ -1,4 +1,4 @@
-import { CONFIG, MODULE_NAME, preLoc, L } from "./config.js";
+import { CONFIG, preLoc } from "./config.js";
 import { Api } from "./api.js";
 import { renderItemSheetHook } from "./item-form.js";
 import { registerSettings } from "./settings.js";

@@ -10,11 +10,19 @@ export class Api {
       const pack = game.packs.get(packId);
       await pack.getIndex({ fields: [ "system.level", "flags.spell-list" ]});
 
+      const makeLevelFilter = () => {
+        if (andBelow && level) {
+          return { field: "system.level", value: [1, level], operator: op.BETWEEN };
+        } else {
+          return { field: "system.level", value: Number(level)};
+        }
+      };
+
       result.push(...pack.search({
         filters: [
           { field: "type", value: "spell" },
-          { field: "system.level", value: level, operator: andBelow ? op.LESS_THAN_EQUAL : op.EQUALS },
-          { field: `flags.spell-list.${listName}`, value: true }
+          { field: `flags.spell-list.${listName}`, value: true },
+          makeLevelFilter()
         ]
       }));
     }

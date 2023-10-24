@@ -5,7 +5,7 @@ const settings = {
 };
 
 export class Settings {
-  static get include() { return game.settings.get(MODULE_NAME, settings.include) }
+  static get include() { return game.settings.get(MODULE_NAME, settings.include); }
 }
 
 class CollectionSettings extends FormApplication {
@@ -19,13 +19,13 @@ class CollectionSettings extends FormApplication {
     const sections = { };
 
     const getName = ({ packageType, packageName }) => {
-      switch (packageType){
-        case "world": return L("SPELL-LIST.settings.collection.world");
-        case "module": return game.modules.get(packageName)?.title ?? packageName;
-        case "system": return game.system?.title || packageType;
-        default: return packageName;
+      switch (packageType) {
+      case "world": return L("SPELL-LIST.settings.collection.world");
+      case "module": return game.modules.get(packageName)?.title ?? packageName;
+      case "system": return game.system?.title || packageType;
+      default: return packageName;
       }
-    }
+    };
 
     for (const { metadata } of game.packs) {
       if (metadata.type !== "Item") continue;
@@ -67,5 +67,5 @@ export const registerSettings = () => {
     label: L("SPELL-LIST.settings.collection.name"),
     restricted: true
   });
-}
+};
 

@@ -1,0 +1,38 @@
+env:
+  browser: true
+  es2021: true
+extends: eslint:recommended
+parserOptions:
+  ecmaVersion: latest
+  sourceType: module
+
+plugins:
+  - html
+
+globals:
+  dnd5e: readonly
+  foundry: readonly
+  fromUuid: readonly
+  game: readonly
+  Hooks: readonly
+  SearchFilter: readonly # Used for Compendium Search
+  FormApplication: readonly # Base for any form
+
+rules:
+  indent:
+    - warn
+    - 2
+  linebreak-style:
+    - warn
+    - unix
+  quotes:
+    - warn
+    - double
+  semi:
+    - warn
+    - always
+  space-before-blocks:
+    - warn
+    - functions: always
+      keywords: always
+      classes: always
