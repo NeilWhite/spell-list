@@ -69,53 +69,44 @@ class SpellChoiceConfig extends dnd5e.applications.advancement.AdvancementConfig
   }
 }
 
-export const configureAdvancement = ({ id, applications, documents }) => {
-  if (id !== "dnd5e") return;
+class SpellChoiceFlow extends dnd5e.applications.advancement.ItemChoiceFlow {
 
-  const DND5E = globalThis.CONFIG.DND5E;
+  async getContext() {
+    const config = this.advancement.configuration;
 
-  class SpellChoiceFlow extends applications.advancement.ItemChoiceFlow {
+    if (!this.pool) {
+      const listName = config.restriction.list ?? this.item.system.identifier;
+      const [ level, range ] = isNaN(config.restriction.level)
+        ? [ 99, true ]
+        : [ Number(config.restriction.level), false ];
 
-    async getContext() {
-      const config = this.advancement.configuration;
+      const queried = new Set([
+        ...(await Api.getList(listName, level, range)).map(v => v.uuid),
+        ...config.pool
+      ]);
 
-      if (!this.pool) {
-        const listName = config.restriction.list ?? this.item.system.identifier;
-        const [ level, range ] = isNaN(config.restriction.level)
-          ? [ 99, true ]
-          : [ Number(config.restriction.level), false ];
+      this.pool = (await Promise.all(queried.map(uuid => fromUuid(uuid))));
+      this.pool.sort((a,b) => a.name?.localeCompare(b.name));
+    }
 
-        const queried = new Set([
-          ...(await Api.getList(listName, level, range)).map(v => v.uuid),
-          ...config.pool
-        ]);
+    return super.getContext();
+  }
+}
 
-        this.pool = await Promise.all(queried.map(uuid => fromUuid(uuid)));
+export class SpellChoiceAdvancement extends dnd5e.documents.advancement.ItemChoiceAdvancement {
+  static get metadata() {
+    return foundry.utils.mergeObject(super.metadata, {
+      title: L("SPELL-LIST.advancement.spellChoice.title"),
+      hint: L("SPELL-LIST.advancement.spellChoice.hint"),
+      dataModels: { configuration: SpellChoiceConfigurationData },
+      apps: {
+        config: SpellChoiceConfig,
+        flow: SpellChoiceFlow
       }
-
-      return super.getContext();
-    }
+    });
   }
 
-
-  class SpellChoiceAdvancement extends documents.advancement.ItemChoiceAdvancement {
-    static get metadata() {
-      return foundry.utils.mergeObject(super.metadata, {
-        title: L("SPELL-LIST.advancement.spellChoice.title"),
-        hint: L("SPELL-LIST.advancement.spellChoice.hint"),
-        dataModels: { configuration: SpellChoiceConfigurationData },
-        apps: {
-          config: SpellChoiceConfig,
-          flow: SpellChoiceFlow
-        }
-      });
-    }
-
-    _validateItemType(item) {
-      return super._validateItemType(item, { type: "spell" });
-    }
-
+  _validateItemType(item) {
+    return super._validateItemType(item, { type: "spell" });
   }
-
-  DND5E.advancementTypes.SpellChoice = SpellChoiceAdvancement;
-};
+}
