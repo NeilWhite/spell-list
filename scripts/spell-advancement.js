@@ -1,7 +1,7 @@
 import { Api } from "./api.js";
 import { MODULE_NAME, L } from "./config.js";
 
-class SpellChoiceConfigurationData extends foundry.abstract.DataModel {
+export class SpellChoiceConfigurationData extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
       hint: new foundry.data.fields.StringField({ label: "DND5E.AdvancementHint" }),
@@ -24,7 +24,7 @@ class SpellChoiceConfigurationData extends foundry.abstract.DataModel {
   }
 }
 
-class SpellChoiceConfig extends dnd5e.applications.advancement.AdvancementConfig {
+export class SpellChoiceConfig extends dnd5e.applications.advancement.AdvancementConfig {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["dnd5e", "advancement", "item-choice", "spell-list", "two-column"],
@@ -69,7 +69,7 @@ class SpellChoiceConfig extends dnd5e.applications.advancement.AdvancementConfig
   }
 }
 
-class SpellChoiceFlow extends dnd5e.applications.advancement.ItemChoiceFlow {
+export class SpellChoiceFlow extends dnd5e.applications.advancement.ItemChoiceFlow {
 
   async getContext() {
     const config = this.advancement.configuration;
