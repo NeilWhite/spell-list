@@ -16,7 +16,7 @@ export const renderItemSheetHook = (itemSheet, html, { data }) => {
     if (!data.flags[MODULE_NAME]) foundry.utils.setProperty(data, `flags.${MODULE_NAME}`, {});
 
     const casterHtml = `<div>
-      <div class="form-group stacked">
+      <div class="form-group stacked spell-list-properties">
         <label>${L("SPELL-LIST.section.class")}</label>
         ${Object
           .entries(CONFIG.casters.class)
