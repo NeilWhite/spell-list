@@ -35,5 +35,10 @@
       "path": "lang/en.json",
       "flags": {}
     }
-  ]
+  ],
+  "bugs": "https://github.com/neilwhite/spell-list/issues",
+  "changelog": "https://github.com/neilwhite/spell-list/releases",
+  "manifest": "https://github.com/neilwhite/spell-list/releases/latest/download/module.json",
+  "readme": "https://raw.githubusercontent.com/neilwhite/spell-list/main/README.md",
+  "url": "https://github.com/neilwhite/spell-list"
 }
