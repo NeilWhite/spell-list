@@ -1,4 +1,4 @@
-import { CONFIG, MODULE_NAME, makeSection } from "./config.js";
+import { CONFIG, MODULE_NAME, L, makeSection } from "./config.js";
 import { Settings } from "./settings.js";
 
 export class SpellList5eItemSheet {
@@ -19,7 +19,7 @@ export class SpellList5eItemSheet {
 
       let instance = this.cache.get(app.id);
       if (instance) {
-        instance.renderLite();
+        instance._renderLite();
         if (instance._tabOpen) {
           app._tabs?.[0]?.activate?.("spell-list");
           instance._tabOpen = false;
@@ -29,7 +29,7 @@ export class SpellList5eItemSheet {
       } else {
         instance = new SpellList5eItemSheet(app, html);
         this.cache.set(app.id, instance);
-        return instance.renderLite();
+        return instance._renderLite();
       }
     });
 
@@ -40,8 +40,8 @@ export class SpellList5eItemSheet {
     });
   }
 
-  renderLite() {
-    const tab = $('<a class="item" data-tab="spell-list">SPELL-LIST</a>');
+  _renderLite() {
+    const tab = $(`<a class="item" data-tab="spell-list">${L("SPELL-LIST.name")}</a>`);
     const tabs = this.html.find('.tabs[data-group="primary"]');
     if (!tabs) return;
     tabs.append(tab);

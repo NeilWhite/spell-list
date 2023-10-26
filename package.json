@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint **/*.{js,hbs}",
     "lint:fix": "eslint **/*.{js,hbs} --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+		"version": "node version-bump.mjs && git add module.json"
   },
   "author": "",
   "license": "ISC",
