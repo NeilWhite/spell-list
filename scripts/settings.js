@@ -1,11 +1,13 @@
 import { MODULE_NAME, L } from "./config.js";
 
 const settings = {
-  include: "include-collection"
+  include: "include-collection",
+  extraLists: "extra-lists"
 };
 
 export class Settings {
   static get include() { return game.settings.get(MODULE_NAME, settings.include); }
+  static get extraLists() { return game.settings.get(MODULE_NAME, settings.extraLists).split(",").filter(v => v).map(v => v.trim()); }
 }
 
 class CollectionSettings extends FormApplication {
@@ -20,10 +22,10 @@ class CollectionSettings extends FormApplication {
 
     const getName = ({ packageType, packageName }) => {
       switch (packageType) {
-      case "world": return L("SPELL-LIST.settings.collection.world");
-      case "module": return game.modules.get(packageName)?.title ?? packageName;
-      case "system": return game.system?.title || packageType;
-      default: return packageName;
+        case "world": return L("SPELL-LIST.settings.collection.world");
+        case "module": return game.modules.get(packageName)?.title ?? packageName;
+        case "system": return game.system?.title || packageType;
+        default: return packageName;
       }
     };
 
@@ -56,6 +58,16 @@ export const registerSettings = () => {
     config: false,
     default: [],
     requiresReload: true
+  });
+
+  game.settings.register(MODULE_NAME, settings.extraLists, {
+    name: "Extra Lists",
+    hint: "Additional options in the list",
+    scope: "world",
+    type: String,
+    config: true,
+    default: "",
+    requiresReload: false
   });
 
   game.settings.registerMenu(MODULE_NAME, L("SPELL-LIST.settings.collection.name"), {

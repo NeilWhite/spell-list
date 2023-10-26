@@ -1,34 +1,74 @@
-import { CONFIG, MODULE_NAME, L } from "./config.js";
+import { CONFIG, MODULE_NAME, makeSection } from "./config.js";
+import { Settings } from "./settings.js";
 
-const buildCheckbox = (name, detail, data) => {
-  return `<label class="checkbox">
-    <input type="checkbox" name="flags.${MODULE_NAME}.${name}" ${data.flags[MODULE_NAME][name] ? "checked" : ""} />
-    ${ detail.label }
-  </label>`;
-};
-
-const buildSection = (name, list, data) => {
-  return `<label>${L(name)}</label>` +
-    Object.entries(list).map(([k, v]) => buildCheckbox(k, v, data)).join("");
-};
-
-export const renderItemSheetHook = (itemSheet, html, { data }) => {
-  if (data.type !== "spell") return;
-
-  const element = html.find("select[name=\"system.preparation.mode\"]").parent().parent();
-
-  if (element) {
-    if (!data.flags[MODULE_NAME]) foundry.utils.setProperty(data, `flags.${MODULE_NAME}`, {});
-
-    element.after(
-      `<h3 class="form-header">${L("SPELL-LIST.name")}</h3>
-      <div>
-        <div class="form-group stacked spell-list-properties">
-          ${buildSection("SPELL-LIST.section.class", CONFIG.casters.class, data)}
-          ${buildSection("SPELL-LIST.section.subclass", CONFIG.casters.subclass, data)}
-        </div>
-      </div>`);
+export class SpellList5eItemSheet {
+  constructor(app, html) {
+    this.app = app;
+    this.item = app.item;
+    this.html = html;
   }
-};
+
+  _tabOpen = false;
+
+  static cache = new Map();
+
+  static init() {
+    Hooks.on("renderItemSheet", async (app, html, { data }) => {
+      if (data.type !== "spell") return;
+      if (!data.flags[MODULE_NAME]) foundry.utils.setProperty(data, `flags.${MODULE_NAME}`, {});
+
+      let instance = this.cache.get(app.id);
+      if (instance) {
+        instance.renderLite();
+        if (instance._tabOpen) {
+          app._tabs?.[0]?.activate?.("spell-list");
+          instance._tabOpen = false;
+        }
+
+        return;
+      } else {
+        instance = new SpellList5eItemSheet(app, html);
+        this.cache.set(app.id, instance);
+        return instance.renderLite();
+      }
+    });
+
+    Hooks.on("closeItemSheet", async (app) => {
+      if (SpellList5eItemSheet.cache.get(app.appId)) {
+        return SpellList5eItemSheet.cache.delete(app.appId);
+      }
+    });
+  }
+
+  renderLite() {
+    const tab = $('<a class="item" data-tab="spell-list">SPELL-LIST</a>');
+    const tabs = this.html.find('.tabs[data-group="primary"]');
+    if (!tabs) return;
+    tabs.append(tab);
+
+    const body = this.html.find(".sheet-body");
+    const tabBody = $('<div class="tab spell-list flexcol" data-group="primary" data-tab="spell-list"></div>');
+    body.append(tabBody);
+    this.renderContent(tabBody);
+  }
+
+  async _renderOptions() {
+    return renderTemplate(`/modules/${MODULE_NAME}/templates/spell-list-tab.hbs`, {
+      section: {
+        ...CONFIG.lists,
+        custom: makeSection("custom", Settings.extraLists, false)
+      },
+      data: this.item.flags[MODULE_NAME],
+      dataString: JSON.stringify(this.item.flags[MODULE_NAME])
+    });
+  }
+
+  async renderContent(container) {
+    const html = $(await this._renderOptions());
+    container.append(html);
+
+    this.html.on("click", ".spell-list-tab", () => { this._tabOpen = true; });
+  }
+}
 
 

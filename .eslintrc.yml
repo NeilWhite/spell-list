@@ -10,10 +10,12 @@ plugins:
   - html
 
 globals:
+  $: readonly
   dnd5e: readonly
   foundry: readonly
   fromUuid: readonly
   game: readonly
+  renderTemplate: readonly
   Hooks: readonly
   SearchFilter: readonly # Used for Compendium Search
   FormApplication: readonly # Base for any form
@@ -22,12 +24,14 @@ rules:
   indent:
     - warn
     - 2
+    - SwitchCase: 1
   linebreak-style:
     - warn
     - unix
   quotes:
     - warn
     - double
+    - avoidEscape: true
   semi:
     - warn
     - always
