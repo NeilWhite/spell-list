@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: zip -r ./${{github.repository}}.zip module.json lang/ scripts/ templates/ css/
+      - run: zip -r ./spell-list.${{ github.event.release.tag_name }}.zip module.json lang/ scripts/ templates/ css/
 
     # Create a release for this specific version
       - name: Update Release with Files
@@ -21,7 +21,7 @@ jobs:
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "./module.json, ./${{github.repository}}.zip"
+          artifacts: "./module.json, ./spell-list.${{ github.event.release.tag_name }}.zip"
           tag: ${{ github.event.release.tag_name }}
           body: ${{ github.event.release.body }}
 
