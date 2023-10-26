@@ -1,13 +1,13 @@
 {
   "name": "foundryvtt-spell-list",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Add SpellList settings to spells",
   "main": "index.js",
   "scripts": {
     "lint": "eslint **/*.{js,hbs}",
     "lint:fix": "eslint **/*.{js,hbs} --fix",
     "prepare": "husky install",
-		"version": "node version-bump.mjs && git add module.json"
+    "version": "node version-bump.mjs && git add module.json"
   },
   "author": "",
   "license": "ISC",
