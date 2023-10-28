@@ -34,8 +34,8 @@ export class SpellList5eItemSheet {
     });
 
     Hooks.on("closeItemSheet", async (app) => {
-      if (SpellList5eItemSheet.cache.get(app.appId)) {
-        return SpellList5eItemSheet.cache.delete(app.appId);
+      if (SpellList5eItemSheet.cache.get(app.id)) {
+        return SpellList5eItemSheet.cache.delete(app.id);
       }
     });
   }

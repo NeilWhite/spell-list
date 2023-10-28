@@ -26,5 +26,3 @@ Hooks.on("init", () => {
   globalThis.CONFIG.DND5E.advancementTypes.SpellChoice = SpellChoiceAdvancement;
 });
 
-Hooks.on("ready", () => {
-});
