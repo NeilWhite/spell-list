@@ -20,7 +20,7 @@
         "type": "system",
         "compatibility": {}
       }
-    ]
+		]
   },
   "esmodules": [
     "/scripts/module.js"

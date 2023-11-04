@@ -24,5 +24,7 @@ Hooks.on("init", () => {
   SpellList5eItemSheet.init();
 
   globalThis.CONFIG.DND5E.advancementTypes.SpellChoice = SpellChoiceAdvancement;
+
 });
+
 

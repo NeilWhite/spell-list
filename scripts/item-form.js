@@ -13,6 +13,7 @@ export class SpellList5eItemSheet {
   static cache = new Map();
 
   static init() {
+
     Hooks.on("renderItemSheet", async (app, html, { data }) => {
       if (data.type !== "spell") return;
       if (!data.flags[MODULE_NAME]) foundry.utils.setProperty(data, `flags.${MODULE_NAME}`, {});
@@ -22,6 +23,7 @@ export class SpellList5eItemSheet {
         instance._renderLite();
         if (instance._tabOpen) {
           app._tabs?.[0]?.activate?.("spell-list");
+          app.setPosition({ height: "auto" });
           instance._tabOpen = false;
         }
 
@@ -67,7 +69,10 @@ export class SpellList5eItemSheet {
     const html = $(await this._renderOptions());
     container.append(html);
 
-    this.html.on("click", ".spell-list-tab", () => { this._tabOpen = true; });
+    this.html.on("click", ".spell-list-tab", () => {
+      this._tabOpen = true;
+      this.app.setPosition({ height: "auto" });
+    });
   }
 }
 
