@@ -28,7 +28,7 @@ const subclasses = [
   "war-domain" ,
 
   // Druid
-  "circle-of-wildfire",
+  "circle-of-wildfire", "circle-of-the-land", "circle-of-spores",
 
   // Paladin
   "oath-of-the-ancients", "oath-of-conquest", "oath-of-the-crown", "oath-of-devotion",

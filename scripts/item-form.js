@@ -22,8 +22,7 @@ export class SpellList5eItemSheet {
       if (instance) {
         instance._renderLite();
         if (instance._tabOpen) {
-          app._tabs?.[0]?.activate?.("spell-list");
-          app.setPosition({ height: "auto" });
+          instance.app._tabs?.[0]?.activate?.("spell-list");
           instance._tabOpen = false;
         }
 
@@ -68,10 +67,10 @@ export class SpellList5eItemSheet {
   async renderContent(container) {
     const html = $(await this._renderOptions());
     container.append(html);
+    this.app.setPosition({ height: "auto" });
 
     this.html.on("click", ".spell-list-tab", () => {
       this._tabOpen = true;
-      this.app.setPosition({ height: "auto" });
     });
   }
 }

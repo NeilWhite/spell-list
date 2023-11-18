@@ -10,7 +10,8 @@
   "authors": [
     {
       "name": "Neil White",
-      "discord": "slamwell"
+      "discord": "slamwell",
+      "flags": {}
     }
   ],
   "relationships": {
@@ -20,7 +21,7 @@
         "type": "system",
         "compatibility": {}
       }
-		]
+    ]
   },
   "esmodules": [
     "/scripts/module.js"
