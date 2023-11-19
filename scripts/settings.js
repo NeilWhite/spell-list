@@ -1,5 +1,7 @@
 import { MODULE_NAME, L } from "./config.js";
 
+export const info = (...args) => console.log(`${MODULE_NAME} | `, ...args);
+
 const settings = {
   include: "include-collection",
   extraLists: "extra-lists"

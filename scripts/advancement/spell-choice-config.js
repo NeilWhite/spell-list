@@ -1,5 +1,5 @@
-import { Api } from "./api.js";
-import { MODULE_NAME, L } from "./config.js";
+import { MODULE_NAME } from "../config.js";
+import { Api } from "../api.js";
 
 export class SpellChoiceConfigurationData extends foundry.abstract.DataModel {
   static defineSchema() {
@@ -9,10 +9,20 @@ export class SpellChoiceConfigurationData extends foundry.abstract.DataModel {
         new foundry.data.fields.NumberField(), { hint: "DND5E.AdvancementItemChoiceLevelsHint" }
       ),
       allowDrops: new foundry.data.fields.BooleanField({
-        initial: true, label: "DND5E.AdvancementConfigureAllowDrops",
+        initial: true,
+        label: "DND5E.AdvancementConfigureAllowDrops",
         hint: "DND5E.AdvancementConfigureAllowDropsHint"
       }),
       pool: new foundry.data.fields.ArrayField(new foundry.data.fields.StringField(), { label: "DOCUMENT.Items" }),
+      includeSubclass: new foundry.data.fields.BooleanField({
+        initial: false,
+        label: "SPELL-LIST.advancement.spellChoice.subclass.title",
+        hint: "SPELL-LIST.advancement.spellChoice.subclass.hint"
+      }),
+      list: new foundry.data.fields.StringField({
+        label: "SPELL-LIST.advancement.spellChoice.override.title",
+        hint: "SPELL-LIST.advancement.spellChoice.override.hint"
+      }),
       spell: new foundry.data.fields.EmbeddedDataField(
         dnd5e.dataModels.advancement.SpellConfigurationData,
         { nullable: true, initial: null }
@@ -30,7 +40,7 @@ export class SpellChoiceConfig extends dnd5e.applications.advancement.Advancemen
       classes: ["dnd5e", "advancement", "item-choice", "spell-list", "two-column"],
       dragDrop: [{ dropSelector: ".drop-target" }],
       dropKeyPath: "pool",
-      template: `modules/${MODULE_NAME}/templates/spell-choice-config.hbs`,
+      template: `modules/${MODULE_NAME}/templates/spell-list-choice-config.hbs`,
       width: 540
     });
   }
@@ -66,47 +76,5 @@ export class SpellChoiceConfig extends dnd5e.applications.advancement.Advancemen
 
   _validateDroppedItem(event, item) {
     this.advancement._validateItemType(item);
-  }
-}
-
-export class SpellChoiceFlow extends dnd5e.applications.advancement.ItemChoiceFlow {
-
-  async getContext() {
-    const config = this.advancement.configuration;
-
-    if (!this.pool) {
-      const listName = config.restriction.list ?? this.item.system.identifier;
-      const [ level, range ] = isNaN(config.restriction.level)
-        ? [ 99, true ]
-        : [ Number(config.restriction.level), false ];
-
-      const queried = new Set([
-        ...(await Api.getList(listName, level, range)).map(v => v.uuid),
-        ...config.pool
-      ]);
-
-      this.pool = (await Promise.all(queried.map(uuid => fromUuid(uuid))));
-      this.pool.sort((a,b) => a.name?.localeCompare(b.name));
-    }
-
-    return super.getContext();
-  }
-}
-
-export class SpellChoiceAdvancement extends dnd5e.documents.advancement.ItemChoiceAdvancement {
-  static get metadata() {
-    return foundry.utils.mergeObject(super.metadata, {
-      title: L("SPELL-LIST.advancement.spellChoice.title"),
-      hint: L("SPELL-LIST.advancement.spellChoice.hint"),
-      dataModels: { configuration: SpellChoiceConfigurationData },
-      apps: {
-        config: SpellChoiceConfig,
-        flow: SpellChoiceFlow
-      }
-    });
-  }
-
-  _validateItemType(item) {
-    return super._validateItemType(item, { type: "spell" });
   }
 }

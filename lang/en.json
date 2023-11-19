@@ -67,6 +67,10 @@
   "SPELL-LIST.advancement.spellChoice.listDetail.title": "Spell List Preview",
   "SPELL-LIST.advancement.spellChoice.listDetail.total": "Total found",
   "SPELL-LIST.advancement.spellChoice.listDetail.additional": "Additional spells",
+  "SPELL-LIST.advancement.spellChoice.subclass.title": "Include Subclass",
+  "SPELL-LIST.advancement.spellChoice.subclass.hint": "Include spells from selected subclasses table",
+  "SPELL-LIST.advancement.spellChoice.override.title": "Override list",
+  "SPELL-LIST.advancement.spellChoice.override.hint": "Use a specific list instead of the classes list",
 
   "SPELL-LIST.settings.collection.name": "Included Compendiums",
   "SPELL-LIST.settings.collection.hint": "Configure which compendiums should be scanned for spells (spells must be configured with spell-list tags)",

@@ -7,6 +7,21 @@
     </div>
 
     <div class="form-group">
+      <label>{{localize "SPELL-LIST.advancement.spellChoice.override.title"}}</label>
+      <div class="form-fields">
+         <input type="text" name="configuration.list" value="{{configuration.list}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>{{localize "SPELL-LIST.advancement.spellChoice.subclass.title"}}</label>
+      <div class="form-fields">
+        <input type="checkbox" name="configuration.includeSubclass" {{checked configuration.includeSubclass}}>
+      </div>
+      <p class="hint">{{localize "SPELL-LIST.advancement.spellChoice.subclass.hint"}}</p>
+    </div>
+
+    <div class="form-group">
       <label>{{localize "DND5E.AdvancementConfigureAllowDrops"}}</label>
       <div class="form-fields">
         <input type="checkbox" name="configuration.allowDrops" {{checked configuration.allowDrops}}>
