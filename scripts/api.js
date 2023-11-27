@@ -28,16 +28,19 @@ export class Api {
       }));
     }
 
+    info(`Queried List: ${listName} [found: ${result.length}]`);
     return result;
   }
 
   static async getLists(lists, level, range = false) {
+    info("Querying Multiple Lists:", lists);
     const result = [];
 
-    for(const list of lists) {
+    for (const list of lists) {
       result.push(...(await Api.getList(list, level, range)).map(v => v.uuid));
     }
 
+    info(`Query Multiple Outcome: ${result.length}`);
     return result;
   }
 }

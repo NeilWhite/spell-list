@@ -9,7 +9,7 @@ export class SpellChoiceAdvancement extends dnd5e.documents.advancement.ItemChoi
       title: L("SPELL-LIST.advancement.spellChoice.title"),
       hint: L("SPELL-LIST.advancement.spellChoice.hint"),
       icon: `modules/${MODULE_NAME}/svg/hand-holding-magic-solid.svg`,
-      validItemTypes: new Set(["class", "subclass"]),
+      validItemTypes: new Set(["class", "subclass", "race"]),
       multiLevel: true,
       dataModels: {
         configuration: SpellChoiceConfigurationData

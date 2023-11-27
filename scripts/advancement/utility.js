@@ -31,3 +31,4 @@ export const getMaxSlotLevel = (classItem, levels) => {
   info(`Unable to determine spell level for class ${classItem.identifier}, using max-level`);
   return maxSpellLevel;
 };
+
