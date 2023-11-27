@@ -1,4 +1,5 @@
 import { Api } from "../api.js";
+import { MODULE_NAME } from "../config.js";
 import * as utility from "./utility.js";
 
 export class SpellChoiceFlow extends dnd5e.applications.advancement.ItemChoiceFlow {
@@ -17,6 +18,11 @@ export class SpellChoiceFlow extends dnd5e.applications.advancement.ItemChoiceFl
 
       if (includeSubclass && this.item.subclass) {
         listNames.push(this.item.subclass.name);
+      }
+
+      const flag = this.parent?.getFlag(MODULE_NAME, list);
+      if (flag) {
+        listNames.push(flag);
       }
 
       const resultList = (await Api.getLists(listNames, level, range));

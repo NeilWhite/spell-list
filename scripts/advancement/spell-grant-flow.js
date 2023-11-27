@@ -1,5 +1,6 @@
 import { Api } from "../api.js";
 import * as utility from "./utility.js";
+import { MODULE_NAME } from "../config.js";
 
 export class SpellGrantFlow extends dnd5e.applications.advancement.ItemGrantFlow {
   listSpells = null;
@@ -15,6 +16,11 @@ export class SpellGrantFlow extends dnd5e.applications.advancement.ItemGrantFlow
 
       if (includeSubclass && this.item.subclass) {
         listNames.push(this.item.subclass.name);
+      }
+
+      const flag = this.parent?.getFlag(MODULE_NAME, list);
+      if (flag) {
+        listNames.push(flag);
       }
 
       const listResult = (await Api.getLists(listNames, level, false));
