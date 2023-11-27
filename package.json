@@ -1,6 +1,6 @@
 {
   "name": "foundryvtt-spell-list",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Add SpellList settings to spells",
   "main": "index.js",
   "scripts": {
