@@ -15,7 +15,7 @@ export class SpellGrantFlow extends dnd5e.applications.advancement.ItemGrantFlow
       const level = utility.getMaxSlotLevel(this.item, this.level);
 
       if (includeSubclass && this.item.subclass) {
-        listNames.push(this.item.subclass.name);
+        listNames.push(this.item.subclass.system.identifier);
       }
 
       const flag = this.parent?.getFlag(MODULE_NAME, list);

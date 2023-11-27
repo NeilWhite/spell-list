@@ -17,7 +17,7 @@ export class SpellChoiceFlow extends dnd5e.applications.advancement.ItemChoiceFl
         : [ Number(restriction.level), false ];
 
       if (includeSubclass && this.item.subclass) {
-        listNames.push(this.item.subclass.name);
+        listNames.push(this.item.subclass.system.identifier);
       }
 
       const flag = this.parent?.getFlag(MODULE_NAME, list);
