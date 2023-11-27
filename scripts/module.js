@@ -2,22 +2,25 @@ import { CONFIG } from "./config.js";
 import { Api } from "./api.js";
 import { SpellList5eItemSheet } from "./item-form.js";
 import { registerSettings } from "./settings.js";
-import { SpellChoiceAdvancement } from "./advancement/spell-advancement.js";
-import { SpellChoiceConfig, SpellChoiceConfigurationData } from "./advancement/spell-choice-config.js";
-import { SpellChoiceFlow } from "./advancement/spell-choice-flow.js";
+import { SpellChoiceAdvancement, SpellChoiceConfig, SpellChoiceConfigurationData, SpellChoiceFlow } from "./advancement/index.js";
+import { SpellGrantAdvancement, SpellGrantConfig, SpellGrantConfigurationData, SpellGrantFlow } from "./advancement/index.js";
 
 Hooks.on("init", () => {
   globalThis.CONFIG.SpellList = {
     Api,
     documents: {
-      SpellChoiceConfigurationData
+      SpellChoiceConfigurationData,
+      SpellGrantConfigurationData
     },
     applications: {
       SpellChoiceConfig,
-      SpellChoiceFlow
+      SpellChoiceFlow,
+      SpellGrantConfig,
+      SpellGrantFlow
     },
     advancement: {
-      SpellChoiceAdvancement
+      SpellChoiceAdvancement,
+      SpellGrantAdvancement
     },
     lists: CONFIG.lists
   };
@@ -26,7 +29,7 @@ Hooks.on("init", () => {
   SpellList5eItemSheet.init();
 
   globalThis.CONFIG.DND5E.advancementTypes.SpellChoice = SpellChoiceAdvancement;
-
+  globalThis.CONFIG.DND5E.advancementTypes.SpellGrant = SpellGrantAdvancement;
 });
 
 

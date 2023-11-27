@@ -47,10 +47,8 @@ export class SpellChoiceConfig extends dnd5e.applications.advancement.Advancemen
 
   async getData(option= {}) {
     const init = super.getData(option);
-    const restriction = this.advancement.configuration.restriction;
-
-    let { level, list } = restriction;
-    list ??= this.advancement.item.system.identifier;
+    let { restriction: { level }, list } = this.advancement.configuration;
+    if (!list || list ==="") list = this.advancement.item.system.identifier;
 
     const [ nLevel, range ] = isNaN(level)
       ? [ 9, true ]

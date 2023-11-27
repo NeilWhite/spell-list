@@ -1,16 +1,16 @@
 import { MODULE_NAME } from "../config.js";
 import { Api } from "../api.js";
 
-export class SpellChoiceConfigurationData extends foundry.abstract.DataModel {
+export class SpellGrantConfigurationData extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
       hint: new foundry.data.fields.StringField({ label: "DND5E.AdvancementHint" }),
-      allowDrops: new foundry.data.fields.BooleanField({
-        initial: true,
-        label: "DND5E.AdvancementConfigureAllowDrops",
-        hint: "DND5E.AdvancementConfigureAllowDropsHint"
-      }),
-      pool: new foundry.data.fields.ArrayField(new foundry.data.fields.StringField(), { label: "DOCUMENT.Items" }),
+      // allowDrops: new foundry.data.fields.BooleanField({
+      //   initial: true,
+      //   label: "DND5E.AdvancementConfigureAllowDrops",
+      //   hint: "DND5E.AdvancementConfigureAllowDropsHint"
+      // }),
+      // pool: new foundry.data.fields.ArrayField(new foundry.data.fields.StringField(), { label: "DOCUMENT.Items" }),
       includeSubclass: new foundry.data.fields.BooleanField({
         initial: false,
         label: "SPELL-LIST.advancement.spellChoice.subclass.title",
@@ -24,9 +24,9 @@ export class SpellChoiceConfigurationData extends foundry.abstract.DataModel {
         dnd5e.dataModels.advancement.SpellConfigurationData,
         { nullable: true, initial: null }
       ),
-      restriction: new foundry.data.fields.SchemaField({
-        level: new foundry.data.fields.StringField({ label: "DND5E.SpellLevel" }),
-      })
+      // restriction: new foundry.data.fields.SchemaField({
+      //   level: new foundry.data.fields.StringField({ label: "DND5E.SpellLevel" }),
+      // })
     };
   }
 }
@@ -34,9 +34,9 @@ export class SpellChoiceConfigurationData extends foundry.abstract.DataModel {
 export class SpellGrantConfig extends dnd5e.applications.advancement.AdvancementConfig {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "advancement", "item-grant", "spell-list", "two-column"],
-      dragDrop: [{ dropSelector: ".drop-target" }],
-      dropKeyPath: "pool",
+      classes: ["dnd5e", "advancement", "item-grant", "spell-list"],
+      // dragDrop: [{ dropSelector: ".drop-target" }],
+      // dropKeyPath: "pool",
       template: `modules/${MODULE_NAME}/templates/spell-list-grant-config.hbs`,
       width: 540
     });
@@ -44,16 +44,10 @@ export class SpellGrantConfig extends dnd5e.applications.advancement.Advancement
 
   async getData(option= {}) {
     const init = super.getData(option);
-    const restriction = this.advancement.configuration.restriction;
+    let list = this.advancement.configuration.list;
+    if (!list || list === "") list = this.advancement.item.system.identifier;
 
-    let { level, list } = restriction;
-    list ??= this.advancement.item.system.identifier;
-
-    const [ nLevel, range ] = isNaN(level)
-      ? [ 9, true ]
-      : [ Number(level), false ];
-
-    const spells = await Api.getList(list, nLevel, range);
+    const spells = await Api.getList(list, 9);
     const result = {
       ...init,
       preview: {

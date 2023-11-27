@@ -62,7 +62,9 @@
   "SPELL-LIST.subclass.the-undying": "The Undying",
   "SPELL-LIST.subclass.the-undead": "The Undead",
 
-  "SPELL-LIST.advancement.spellChoice.title": "Grant Spells",
+  "SPELL-LIST.advancement.spellGrant.title": "Grant Spells",
+  "SPELL-LIST.advancement.spellGrant.hint": "Grant the character all spells available to them from a class list",
+  "SPELL-LIST.advancement.spellChoice.title": "Choose Spells",
   "SPELL-LIST.advancement.spellChoice.hint": "Grant the character a number of spells from a the classes spell list",
   "SPELL-LIST.advancement.spellChoice.listDetail.title": "Spell List Preview",
   "SPELL-LIST.advancement.spellChoice.listDetail.total": "Total found",

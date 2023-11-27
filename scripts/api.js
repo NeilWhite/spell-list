@@ -1,7 +1,8 @@
-import { Settings } from "./settings.js";
+import { Settings, info } from "./settings.js";
 
 export class Api {
   static async getList(listName, level, andBelow = false) {
+    info(`Querying List: ${listName} [level: ${level}, ${andBelow}]`);
     const op = SearchFilter.OPERATORS;
 
     const result = [];
@@ -25,6 +26,16 @@ export class Api {
           makeLevelFilter()
         ]
       }));
+    }
+
+    return result;
+  }
+
+  static async getLists(lists, level, range = false) {
+    const result = [];
+
+    for(const list of lists) {
+      result.push(...(await Api.getList(list, level, range)).map(v => v.uuid));
     }
 
     return result;

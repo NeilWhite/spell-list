@@ -18,22 +18,22 @@ const classes = [
 ];
 
 const subclasses = [
-  // Artificer
-  "alchemist", "armorer", "artillerist", "battle-smith" ,
+  // // Artificer
+  // "alchemist", "armorer", "artillerist", "battle-smith" ,
 
-  // Cleric
-  "arcana-domain", "blood-domain", "death-domain", "forge-domain", "grave-domain",
-  "knowledge-domain", "life-domain", "light-domain", "moon-domain", "nature-domain",
-  "order-domain", "peace-domain",  "tempest-domain", "trickery-domain", "twilight-domain",
-  "war-domain" ,
+  // // Cleric
+  // "arcana-domain", "blood-domain", "death-domain", "forge-domain", "grave-domain",
+  // "knowledge-domain", "life-domain", "light-domain", "moon-domain", "nature-domain",
+  // "order-domain", "peace-domain",  "tempest-domain", "trickery-domain", "twilight-domain",
+  // "war-domain" ,
 
-  // Druid
-  "circle-of-wildfire", "circle-of-the-land", "circle-of-spores",
+  // // Druid
+  // "circle-of-wildfire", "circle-of-the-land", "circle-of-spores",
 
-  // Paladin
-  "oath-of-the-ancients", "oath-of-conquest", "oath-of-the-crown", "oath-of-devotion",
-  "oath-of-glory", "oath-of-the-open-sea", "oath-of-redemption", "oath-of-vengeance",
-  "oath-of-the-watchers", "oathbreaker",
+  // // Paladin
+  // "oath-of-the-ancients", "oath-of-conquest", "oath-of-the-crown", "oath-of-devotion",
+  // "oath-of-glory", "oath-of-the-open-sea", "oath-of-redemption", "oath-of-vengeance",
+  // "oath-of-the-watchers", "oathbreaker",
 
   // Warlock
   "the-archfey", "the-celestial", "the-fathomless", "the-fiend", "the-genie",

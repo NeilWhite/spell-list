@@ -7,22 +7,24 @@ export const levelName = (level) => {
   return globalThis.CONFIG.DND5E.spellLevels[level];
 };
 
-export const getMaxSlotLevel = (classItem) => {
+export const getMaxSlotLevel = (classItem, levels) => {
   const { DND5E: { SPELL_SLOT_TABLE }, Actor: { documentClass: Actor5e }} = globalThis.CONFIG;
 
   const maxSpellLevel = SPELL_SLOT_TABLE[SPELL_SLOT_TABLE.length-1].length;
   const progression = { pact: 0, slot: 0 };
   const spells = {};
-  const { type } = classItem.spellcasting;
+  let spellcasting = classItem.spellcasting;
 
-  Actor5e.computeClassProgression(progression, classItem);
-  Actor5e.prepareSpellcastingSlots(spells, type, progression);
+  if (!isNaN(levels)) {
+    spellcasting.levels = levels;
+  }
 
-  if (type === "pact") return spells.pact.level;
+  Actor5e.computeClassProgression(progression, classItem, { spellcasting });
+  Actor5e.prepareSpellcastingSlots(spells, spellcasting.type, progression);
+
+  if (spellcasting.type === "pact") return spells.pact.level;
 
   for (let i = 0; i <= maxSpellLevel; i++ ) {
-    info({ n: spells[`spell${i}`], n1: spells[`spell${i+1}`] });
-
     if (!spells[`spell${i+1}`]?.max) { return i; }
   }
 
