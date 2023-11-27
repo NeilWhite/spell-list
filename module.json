@@ -1,7 +1,7 @@
 {
   "id": "spell-list",
   "title": "Spell List Tagging",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "compatibility": {
     "minimum": "11",
     "verified": "11"
@@ -42,5 +42,5 @@
   "manifest": "https://github.com/neilwhite/spell-list/releases/latest/download/module.json",
   "readme": "https://raw.githubusercontent.com/neilwhite/spell-list/main/README.md",
   "url": "https://github.com/neilwhite/spell-list",
-  "download": "https://github.com/neilwhite/spell-list/releases/download/v0.3.3/spell-list.zip"
+  "download": "https://github.com/neilwhite/spell-list/releases/download/v0.3.4/spell-list.zip"
 }
