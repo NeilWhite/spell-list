@@ -18,7 +18,7 @@ export class SpellGrantFlow extends dnd5e.applications.advancement.ItemGrantFlow
         listNames.push(this.item.subclass.system.identifier);
       }
 
-      const flag = this.parent?.getFlag(MODULE_NAME, list);
+      const flag = this.item.parent?.getFlag(MODULE_NAME, list);
       if (flag) {
         listNames.push(flag);
       }
