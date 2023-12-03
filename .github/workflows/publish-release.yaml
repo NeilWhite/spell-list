@@ -1,27 +1,25 @@
 name: Release
+
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+     - v*
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - run: zip -r ./spell-list.zip module.json lang/ scripts/ templates/ css/ svg/
+      - run: zip -r ./spell-list.zip module.json lang/ scripts/ templates/ css/ svg/ README.md LICENSE
 
     # Create a release for this specific version
       - name: Update Release with Files
         id: create_version_release
         uses: ncipollo/release-action@v1
         with:
-          allowUpdates: true
-          name: ${{ github.event.release.name }}
-          draft: false
-          prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "./module.json, ./spell-list.zip"
-          tag: ${{ github.event.release.tag_name }}
-          body: ${{ github.event.release.body }}
+          artifacts: ./module.json, ./spell-list.zip
 
