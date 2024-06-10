@@ -2,15 +2,25 @@
   "name": "foundryvtt-spell-list",
   "version": "0.3.4",
   "description": "Add SpellList settings to spells",
-  "main": "index.js",
+  "homepage": "https://github.com/neilwhite/spell-list",
+  "maintainers": [
+    {
+      "name": "Neil White",
+      "web": "https://github.com/neilwhite/spell-list"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neilwhite/spell-list"
+  },
   "scripts": {
     "lint": "eslint **/*.{js,hbs}",
     "lint:fix": "eslint **/*.{js,hbs} --fix",
     "prepare": "husky install",
-    "version": "node tools/version-bump.mjs && git add module.json"
+    "version": "node tools/version-bump.mjs && git add module.json",
+    "postversion": "git push && git push --tags"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "eslint": "^8.52.0",
     "eslint-plugin-html": "^7.1.0",

@@ -28,7 +28,7 @@ export class SpellChoiceAdvancement extends dnd5e.documents.advancement.ItemChoi
   titleForLevel(level) {
     const { choices } = this.configuration;
     let total = 0;
-    for (let i = 0; i <= level; i++) total += (choices[i] ?? 0);
+    for (let i = 0; i <= level; i++) total += (choices[i]?.count ?? 0);
     return `${this.title}: <strong>${total}</strong>`;
   }
 

@@ -3,8 +3,8 @@
   "title": "Spell List Tagging",
   "version": "0.3.4",
   "compatibility": {
-    "minimum": "11",
-    "verified": "11"
+    "minimum": "12",
+    "verified": "12"
   },
   "description": "Provides ability to tag spells as part of a classes spell list",
   "authors": [

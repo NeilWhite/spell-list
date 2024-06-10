@@ -19,6 +19,8 @@ globals:
   Hooks: readonly
   SearchFilter: readonly # Used for Compendium Search
   FormApplication: readonly # Base for any form
+  CONFIG: readonly
+  Item: readonly
 
 rules:
   indent:

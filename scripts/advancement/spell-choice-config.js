@@ -1,36 +1,60 @@
 import { MODULE_NAME } from "../config.js";
 import { Api } from "../api.js";
 
+const { StringField, BooleanField, NumberField, SchemaField, ArrayField, EmbeddedDataField } = foundry.data.fields;
+const { MappingField } = dnd5e.dataModels.fields;
+
 export class SpellChoiceConfigurationData extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
-      hint: new foundry.data.fields.StringField({ label: "DND5E.AdvancementHint" }),
-      choices: new dnd5e.dataModels.fields.MappingField(
-        new foundry.data.fields.NumberField(), { hint: "DND5E.AdvancementItemChoiceLevelsHint" }
+      hint: new StringField({ label: "DND5E.AdvancementHint" }),
+      choices: new MappingField(
+        new SchemaField({
+          count: new NumberField({integer: true, min: 0}),
+          replacement: new BooleanField({label: "DND5E.AdvancementItemChoiceReplacement"})
+        }), {
+          hint: "DND5E.AdvancementItemChoiceLevelsHint"
+        }
       ),
-      allowDrops: new foundry.data.fields.BooleanField({
+      allowDrops: new BooleanField({
         initial: true,
         label: "DND5E.AdvancementConfigureAllowDrops",
         hint: "DND5E.AdvancementConfigureAllowDropsHint"
       }),
-      pool: new foundry.data.fields.ArrayField(new foundry.data.fields.StringField(), { label: "DOCUMENT.Items" }),
-      includeSubclass: new foundry.data.fields.BooleanField({
+      pool: new ArrayField(
+        new SchemaField({
+          uuid: new StringField()
+        }), {
+          label: "DOCUMENT.Items"
+        }
+      ),
+      includeSubclass: new BooleanField({
         initial: false,
         label: "SPELL-LIST.advancement.spellChoice.subclass.title",
         hint: "SPELL-LIST.advancement.spellChoice.subclass.hint"
       }),
-      list: new foundry.data.fields.StringField({
+      list: new StringField({
         label: "SPELL-LIST.advancement.spellChoice.override.title",
         hint: "SPELL-LIST.advancement.spellChoice.override.hint"
       }),
-      spell: new foundry.data.fields.EmbeddedDataField(
+      spell: new EmbeddedDataField(
         dnd5e.dataModels.advancement.SpellConfigurationData,
         { nullable: true, initial: null }
       ),
-      restriction: new foundry.data.fields.SchemaField({
-        level: new foundry.data.fields.StringField({ label: "DND5E.SpellLevel" }),
+      restriction: new SchemaField({
+        level: new StringField({ label: "DND5E.SpellLevel" }),
       })
     };
+  }
+
+  static migrateData(source) {
+    if ( "choices" in source ) Object.entries(source.choices).forEach(([k, c]) => {
+      if ( foundry.utils.getType(c) === "number" ) source.choices[k] = { count: c };
+    });
+    if ( "pool" in source ) {
+      source.pool = source.pool.map(i => foundry.utils.getType(i) === "string" ? { uuid: i } : i);
+    }
+    return source;
   }
 }
 
@@ -57,6 +81,10 @@ export class SpellChoiceConfig extends dnd5e.applications.advancement.Advancemen
     const spells = await Api.getList(list, nLevel, range);
     const result = {
       ...init,
+      choices: Object.entries(init.levels).reduce((obj, [level, label]) => {
+        obj[level] = { label, ...this.advancement.configuration.choices[level] };
+        return obj;
+      }, {}),
       preview: {
         spells: spells.slice(0, 5),
         total: spells.length

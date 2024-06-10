@@ -83,13 +83,29 @@
   </div>
 
   <div class="right-column level-list">
-    <p class="hint">{{localize "DND5E.AdvancementItemChoiceLevelsHint"}}</p>
-    {{#each levels as |label level|}}
+    <ol class="items-list">
+        <li class="items-header flexrow">
+            <span class="level-header">
+                {{ localize "DND5E.AbbreviationLevel" }}
+            </span>
+            <span id="{{ appId }}-choices" class="choices-header">
+                {{ localize "DND5E.AdvancementItemChoiceChoices" }}
+            </span>
+            <span id="{{ appId }}-replacement" class="replacement-header">
+                <i class="fa-solid fa-shuffle" data-tooltip="DND5E.AdvancementItemChoiceReplacement"
+                    aria-label="{{ localize 'DND5E.AdvancementItemChoiceReplacement' }}"></i>
+            </span>
+        </li>
+    </ol>
+    {{#each choices}}
       <div class="form-group">
         <label>{{label}}</label>
         <div class="form-fields">
-          {{numberInput (lookup ../configuration.choices level) placeholder="0"
-            name=(concat "configuration.choices." level) min=1 step=1}}
+                <input type="number" name="configuration.choices.{{ @key }}.count" value="{{ count }}" placeholder="0"
+                       min="1" step="1" aria-labelledby="{{ @root.appId }}-choices">
+                <input type="checkbox" name="configuration.choices.{{ @key }}.replacement"
+                       {{ checked replacement }} aria-labelledby="{{ @root.appId }}-replacement">
+
         </div>
       </div>
     {{/each}}
