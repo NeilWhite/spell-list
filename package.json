@@ -1,6 +1,6 @@
 {
   "name": "foundryvtt-spell-list",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "description": "Add SpellList settings to spells",
   "homepage": "https://github.com/neilwhite/spell-list",
   "maintainers": [
